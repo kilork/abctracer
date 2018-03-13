@@ -4,18 +4,21 @@
     <title>ABCTracer in Rust demo</title>
   </head>
   <body>
-  <canvas id="canvas" width="640" height="480">
+  <canvas id="canvas" width="640" height="480"></canvas>
   
 <script>
 (function() {
     var canvas = document.getElementById('canvas');
+    var canvasWidth  = canvas.width;
+    var canvasHeight = canvas.height;
     var ctx = canvas.getContext('2d');
-    var id = ctx.getImageData(0, 0, 1, 1);
-    id.data[3] = 255;
+    var imageData = ctx.getImageData(0, 0, canvasWidth, canvasHeight);
+
+    var data = imageData.data;
+
+    var buf = new ArrayBuffer(imageData.data.length);
+    var buf8 = new Uint8ClampedArray(buf);
+    var data32 = new Uint32Array(buf);
     function pixel(x, y, r, g, b) {
-        ctx.strokeStyle = 'rgb(' + r + ',' + g + ',' + b + ')';	
-        id.data[0] = r;
-        id.data[1] = g;
-        id.data[2] = b;
-        ctx.putImageData(id, x, y);
+      data32[y * canvasWidth + x] = (255 << 24) | (b << 16 ) | (g << 8) | r;
     }
