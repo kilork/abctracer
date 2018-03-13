@@ -1,16 +1,16 @@
 use super::*;
 
 pub struct Sphere {
-    def_material: Surface,
+    material: Surface,
     center: Vector,
     radius: f64,
     radius_radius: f64,
 }
 
 impl Sphere {
-    pub fn new(def_material: Surface, center: Vector, radius: f64) -> Sphere {
+    pub fn new(material: Surface, center: Vector, radius: f64) -> Sphere {
         Sphere {
-            def_material,
+            material,
             center,
             radius,
             radius_radius: radius * radius,
@@ -19,8 +19,8 @@ impl Sphere {
 }
 
 impl GObject for Sphere {
-    fn def_material(&self) -> &Surface {
-        &self.def_material
+    fn material(&self) -> &Surface {
+        &self.material
     }
 
     fn intersect(&self, ray: &Ray, t: &mut f64) -> bool {

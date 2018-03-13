@@ -2,7 +2,7 @@ use super::*;
 
 pub struct Plane {
     // Plane Eq. (n,r) + D = 0
-    def_material: Surface,
+    material: Surface,
     /// unit plane normal
     normal: Vector,
     /// distance from origin
@@ -10,15 +10,15 @@ pub struct Plane {
 }
 
 impl Plane {
-    pub fn new(def_material: Surface, normal: Vector, distance: f64) -> Plane {
+    pub fn new(material: Surface, normal: Vector, distance: f64) -> Plane {
         Plane {
-            def_material,
+            material,
             normal,
             distance,
         }
     }
 
-    pub fn from_abcd(def_material: Surface, a: f64, b: f64, c: f64, d: f64) -> Plane {
+    pub fn from_abcd(material: Surface, a: f64, b: f64, c: f64, d: f64) -> Plane {
         let mut normal = Vector::from((a, b, c));
 
         let normal_length = !normal;
@@ -28,7 +28,7 @@ impl Plane {
         let distance = d / normal_length;
 
         Plane {
-            def_material,
+            material,
             normal,
             distance,
         }
@@ -36,8 +36,8 @@ impl Plane {
 }
 
 impl GObject for Plane {
-    fn def_material(&self) -> &Surface {
-        &self.def_material
+    fn material(&self) -> &Surface {
+        &self.material
     }
 
     fn intersect(&self, ray: &Ray, t: &mut f64) -> bool {

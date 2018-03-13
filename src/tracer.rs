@@ -9,10 +9,10 @@ pub trait LightSource {
 }
 
 pub trait GObject {
-    fn def_material(&self) -> &Surface;
+    fn material(&self) -> &Surface;
 
     fn find_texture(&self, p: &Vector) -> Surface {
-        let mut result = *self.def_material();
+        let mut result = *self.material();
         result.n = self.find_normal(p);
         result
     }
