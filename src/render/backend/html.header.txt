@@ -14,11 +14,6 @@
     var ctx = canvas.getContext('2d');
     var imageData = ctx.getImageData(0, 0, canvasWidth, canvasHeight);
 
-    var data = imageData.data;
-
     var buf = new ArrayBuffer(imageData.data.length);
     var buf8 = new Uint8ClampedArray(buf);
-    var data32 = new Uint32Array(buf);
-    function pixel(x, y, r, g, b) {
-      data32[y * canvasWidth + x] = (255 << 24) | (b << 16 ) | (g << 8) | r;
-    }
+    var d = new Uint32Array(buf);

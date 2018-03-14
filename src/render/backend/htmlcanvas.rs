@@ -49,15 +49,15 @@ impl<'a> RenderBackend for HtmlCanvasBackend<'a> {
 
     fn put_pixel(&mut self, x: u32, y: u32, color: &Color) -> Result<()> {
         if let Some(ref mut file) = self.file {
-            write!(
-                file,
-                "pixel({}, {}, {}, {}, {});\n",
-                x,
-                y,
-                (color.x * 255.0) as u8,
-                (color.y * 255.0) as u8,
-                (color.z * 255.0) as u8
-            )?;
+            if let Some((ref width, _)) = self.size {
+                write!(
+                    file,
+                    "d[{}]={};",
+                    y * width + x,
+                    (255 << 24) | ((color.z * 255.0) as u32) << 16 | ((color.y * 255.0) as u32) << 8
+                        | (color.x * 255.0) as u32
+                )?;
+            }
         }
         Ok(())
     }
