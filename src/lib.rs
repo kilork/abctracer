@@ -15,7 +15,7 @@ pub use ray::Ray;
 pub use matrix::Matrix;
 pub use tracer::{GObject, LightSource};
 pub use render::DummyRenderBackend;
-pub use render::render_scene;
+pub use render::{render_scene, render_scene_supersampling_grid};
 pub use mediums::Medium;
 pub use surface::Surface;
 pub use environment::Environment;

@@ -4,7 +4,7 @@ use abctracer::{Color, Environment, Surface, Vector, GObject, Ray};
 use abctracer::geometry::Sphere;
 use abctracer::geometry::Plane;
 use abctracer::light::PointLight;
-use abctracer::{render_scene, DummyRenderBackend};
+use abctracer::{render_scene, render_scene_supersampling_grid, DummyRenderBackend};
 use abctracer::render::backend::htmlcanvas::HtmlCanvasBackend;
 use abctracer::colors::{BLUE, RED, YELLOW};
 use abctracer::mediums::GLASS;
@@ -70,5 +70,6 @@ fn main() {
         &Vector::from((0.0, 1.0, 0.0)),
     );
 
-    render_scene(&mut environment, 1.3333333, 1.0, 640, 480, &mut backend).unwrap();
+    render_scene_supersampling_grid(&mut environment, 1.3333333, 1.0, 640, 480, 3, 3, &mut backend).unwrap();
+    // render_scene(&mut environment, 1.3333333, 1.0, 640, 480, &mut backend).unwrap();
 }
