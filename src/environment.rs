@@ -2,8 +2,6 @@ use super::*;
 
 use super::mediums::AIR;
 
-pub const INFINITY: f64 = 30000.0;
-
 const BACKGROUND: Vector = Vector {
     x: 0.0,
     y: 0.05,
@@ -83,14 +81,14 @@ impl<'a> Environment<'a> {
     pub fn set_camera(&mut self, &org: &Vector, &dir: &Vector, &up_dir: &Vector) {
         self.eye = org; // eye point
         self.eye_dir = dir; // viewing direction
-        self.v_x = Vector::normalize(up_dir ^ dir); // build orthogonal basis of image plane
-        self.v_y = Vector::normalize(dir ^ self.v_x); // eye_dir orthogonal to this basic (image plane)
+        self.v_x = (up_dir ^ dir).normalize(); // build orthogonal basis of image plane
+        self.v_y = (dir ^ self.v_x).normalize(); // eye_dir orthogonal to this basic (image plane)
     }
 
     pub fn camera(&self, x: f64, y: f64) -> Ray {
         Ray {
             org: self.eye,
-            dir: Vector::normalize(self.eye_dir + self.v_x * x + self.v_y * y),
+            dir: (self.eye_dir + self.v_x * x + self.v_y * y).normalize(),
         }
     }
 
@@ -174,7 +172,7 @@ impl<'a> Environment<'a> {
                     // compute direct specular light, via Phong shading
                     if texture.k_s > self.threshold {
                         // compute half-vector between -view and light vector
-                        let h = Vector::normalize(l - view);
+                        let h = (l - view).normalize();
                         color += *light.color()
                             * (texture.k_s * shadow * (texture.n & h).powi(texture.p));
                     }

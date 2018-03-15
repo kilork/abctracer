@@ -1,7 +1,5 @@
 use super::*;
 
-use super::environment::INFINITY;
-
 pub struct PointLight {
     color: Color,
     center: Vector,

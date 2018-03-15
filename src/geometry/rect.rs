@@ -25,7 +25,7 @@ impl Rect {
             loc,
             side_a,
             side_b,
-            normal: Vector::normalize(side_a ^ side_b),
+            normal: (side_a ^ side_b).normalize(),
             ku,
             kv,
             u0: -(loc & ku),

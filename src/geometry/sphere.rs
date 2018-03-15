@@ -67,12 +67,12 @@ pub mod tests {
         let mut dist = 30000.0;
         assert!(sphere.intersect(&ray, &mut dist));
 
-        let dir = Vector::normalize(Vector::from((10.0, 1.001, 0.0)));
+        let dir = Vector::from((10.0, 1.001, 0.0)).normalize();
         let ray = Ray::new(Vector::from(0.0), dir);
         let mut dist = 30000.0;
         assert!(sphere.intersect(&ray, &mut dist));
 
-        let dir = Vector::normalize(Vector::from((10.0, 1.01, 0.0)));
+        let dir = Vector::from((10.0, 1.01, 0.0)).normalize();
         let ray = Ray::new(Vector::from(0.0), dir);
         let mut dist = 30000.0;
         assert!(!sphere.intersect(&ray, &mut dist));

@@ -31,12 +31,8 @@ impl Vector {
         self.x < other && self.y < other && self.z < other
     }
 
-    pub fn normalize(v: Vector) -> Vector {
-        v / !v
-    }
-
-    pub fn normalize_ref(&v: &Vector) -> Vector {
-        Vector::normalize(v)
+    pub fn normalize(&self) -> Vector {
+        *self / !*self
     }
 
     pub fn clip(self) -> Vector {
@@ -570,11 +566,11 @@ pub mod tests {
     #[test]
     fn vector_normalize() {
         assert_eq!(
-            Vector::normalize(Vector {
+            Vector {
                 x: 3.0,
                 y: 0.0,
                 z: 0.0,
-            }),
+            }.normalize(),
             Vector {
                 x: 1.0,
                 y: 0.0,
@@ -585,12 +581,13 @@ pub mod tests {
 
     #[test]
     fn vector_clip() {
+        let mut v = Vector {
+            x: 3.0,
+            y: 2.0,
+            z: 0.5,
+        };
         assert_eq!(
-            Vector {
-                x: 3.0,
-                y: 2.0,
-                z: 0.5,
-            }.clip(),
+            v.clip(),
             Vector {
                 x: 1.0,
                 y: 1.0,

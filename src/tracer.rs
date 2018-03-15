@@ -1,7 +1,5 @@
 use super::*;
 
-use super::mediums::AIR;
-
 pub trait LightSource {
     fn color(&self) -> &Vector;
 

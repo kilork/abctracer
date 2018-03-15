@@ -21,3 +21,5 @@ pub use surface::Surface;
 pub use environment::Environment;
 
 pub type Color = Vector;
+
+pub const INFINITY: f64 = 30000.0;
