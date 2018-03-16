@@ -138,8 +138,8 @@ impl<'a> Environment<'a> {
         trace_state: &mut TraceState,
         current_medium: &Medium,
         weight: f64,
-        mut p: Vector,
-        mut view: Vector,
+        p: Vector,
+        view: Vector,
         solid: &GObject,
     ) -> Color {
         let mut entering = true; // flag whether we're entering or leaving object
