@@ -220,4 +220,8 @@ impl<'a> Environment<'a> {
         }
         color
     }
+
+    pub fn random_vector(&self) -> Vector {
+        Vector::from(0.5)
+    }
 }
