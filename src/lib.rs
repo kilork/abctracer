@@ -1,3 +1,6 @@
+#![feature(test)]
+extern crate test;
+
 pub mod vector;
 pub mod ray;
 pub mod matrix;
@@ -14,7 +17,6 @@ pub use vector::Vector;
 pub use ray::Ray;
 pub use matrix::Matrix;
 pub use tracer::{GObject, LightSource};
-pub use render::DummyRenderBackend;
 pub use render::{render_scene, render_scene_supersampling_grid,
                  render_scene_supersampling_grid_adaptive};
 pub use mediums::Medium;

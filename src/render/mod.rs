@@ -4,7 +4,7 @@ use std::io::Result;
 
 pub mod backend;
 
-pub use self::backend::{DummyRenderBackend, RenderBackend};
+pub use self::backend::RenderBackend;
 
 use super::mediums::AIR;
 
@@ -97,7 +97,7 @@ pub fn render_scene_supersampling_grid(
     Ok(())
 }
 
-const MAX_ADAPTIVE_COUNT : u32 = 99;
+const MAX_ADAPTIVE_COUNT: u32 = 99;
 
 pub fn render_scene_supersampling_grid_adaptive(
     environment: &Environment,
@@ -132,7 +132,7 @@ pub fn render_scene_supersampling_grid_adaptive(
             let mut disp = 0.0;
             let mut count = 0;
 
-            let mut mean : Vector;
+            let mut mean: Vector;
             loop {
                 for i_sub in 0..nx_sub {
                     for j_sub in 0..ny_sub {
@@ -147,7 +147,7 @@ pub fn render_scene_supersampling_grid_adaptive(
                     }
                 }
                 mean = sum / count as f64;
-                let d = ( disp / count as f64 - (mean & mean)) * count as f64 / (count as f64 - 1.0);
+                let d = (disp / count as f64 - (mean & mean)) * count as f64 / (count as f64 - 1.0);
                 if d < variance || count >= MAX_ADAPTIVE_COUNT {
                     break;
                 }
@@ -161,4 +161,23 @@ pub fn render_scene_supersampling_grid_adaptive(
 
     backend.finish_render()?;
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    extern crate test;
+
+    use test::Bencher;
+
+    use super::*;
+    use super::backend::NullRenderBackend;
+
+    #[bench]
+    fn render_scene_empty_bench(b: &mut test::Bencher) {
+        b.iter(|| {
+            let mut backend = NullRenderBackend::new();
+            let environment = Environment::new();
+            render_scene(&environment, 1.0, 1.0, 100, 100, &mut backend);
+        });
+    }
 }
