@@ -162,22 +162,3 @@ pub fn render_scene_supersampling_grid_adaptive(
     backend.finish_render()?;
     Ok(())
 }
-
-#[cfg(test)]
-mod tests {
-    extern crate test;
-
-    use test::Bencher;
-
-    use super::*;
-    use super::backend::NullRenderBackend;
-
-    #[bench]
-    fn render_scene_empty_bench(b: &mut test::Bencher) {
-        b.iter(|| {
-            let mut backend = NullRenderBackend::new();
-            let environment = Environment::new();
-            render_scene(&environment, 1.0, 1.0, 100, 100, &mut backend);
-        });
-    }
-}

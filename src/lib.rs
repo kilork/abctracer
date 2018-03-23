@@ -1,6 +1,3 @@
-#![feature(test)]
-extern crate test;
-
 pub mod vector;
 pub mod ray;
 pub mod matrix;
