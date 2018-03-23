@@ -8,3 +8,7 @@ matrix:
   allow_failures:
     - rust: nightly
   fast_finish: true
+after_success:
+  - if [ "$TRAVIS_RUST_VERSION" == "nightly" ]; then
+        cargo bench;
+    fi
