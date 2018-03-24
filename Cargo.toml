@@ -4,4 +4,6 @@ version = "0.1.0"
 homepage = "https://github.com/kilork/abctracer"
 authors = ["Alexander Korolev <kilork@yandex.ru>"]
 license = "Unlicense/MIT"
+readme="README.md"
+description="A ray tracer library for Rust Language"
 [dependencies]
